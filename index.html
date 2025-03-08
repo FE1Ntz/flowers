@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <title>З днем боротьби за права жінок!</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container" id="textContainer"></div>
+    <script>
+        const words = [
+            "Сильні",
+            "Непереможні",
+            "Рішучі",
+            "Надихаючі",
+            "Мудрі",
+            "Прекрасні",
+            "Енергійні",
+            "Сміливі",
+            "Непохитні",
+            "Самодостатні",
+            "Чарівні",
+            "Стійкі",
+            "Вірні",
+            "Невтомні",
+            "Ніжні",
+            "Ласкаві",
+            "Чутливі",
+            "Витончені",
+            "Гармонійні",
+            "Елегантні",
+            "Яскраві",
+            "Незрівнянні",
+            "Незабутні",
+            "Тендітні"
+        ];
+
+        const container = document.getElementById("textContainer");
+
+        const totalBackgrounds = 15;
+        const backgrounds = [];
+        for (let i = 0; i < totalBackgrounds; i++) {
+            backgrounds.push(`/flowers${i}.jpg`);
+        }
+
+        let currentBackgroundIndex = localStorage.getItem('backgroundIndex');
+        
+        if (currentBackgroundIndex === null) {
+            currentBackgroundIndex = 0;
+        } else {
+            currentBackgroundIndex = parseInt(currentBackgroundIndex);
+        }
+
+        function changeBackground() {
+            container.style.backgroundImage = `url('${backgrounds[currentBackgroundIndex]}')`;
+            container.style.backgroundSize = "cover";
+            container.style.backgroundPosition = "center";
+
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % totalBackgrounds;
+            
+            localStorage.setItem('backgroundIndex', currentBackgroundIndex);
+        }
+
+        window.onload = changeBackground;
+
+        function generateWords() {
+            container.innerHTML = '';
+            let totalWords = 5000;
+            
+            for (let i = 0; i < totalWords; i++) {
+                let word = words[Math.floor(Math.random() * words.length)];
+                let span = document.createElement("span");
+                span.classList.add("word");
+                span.textContent = word;
+                let fontSize = 17;
+                span.style.fontSize = `${fontSize}px`;
+                container.appendChild(span);
+            }
+        }
+
+        generateWords();
+    </script>
+</body>
+</html>
